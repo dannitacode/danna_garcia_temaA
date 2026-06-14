@@ -13,19 +13,22 @@ public class Mochila {
     private List<ObjetoMovil> objetos;
 
     public Mochila() {
-        this.capacidad = 3; 
+        this.capacidad = 3;
         this.objetos = new ArrayList<>();
     }
 
-    public void guardar(ObjetoMovil obj) {
+    public boolean guardar(ObjetoMovil obj) {
         if (objetos.size() < capacidad) {
             objetos.add(obj);
             obj.estadoMapa = false;
+            return true;
         }
+        System.out.println("mochila llena");
+        return false;
     }
 
     public void usar(ObjetoMovil obj) {
-    //todo
+        //todo
     }
 
     public void tirar(ObjetoMovil obj) {

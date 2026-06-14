@@ -14,12 +14,39 @@ public class Heroe extends Personaje {
         this.mochila = new Mochila();
     }
 
+    public int getVida() {
+        return vida;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
+
+    public Mochila getMochila() {
+        return mochila;
+    }
+
     public void recogerObjeto(ObjetoMovil obj) {
-        this.mochila.guardar(obj);
+        if (obj instanceof Comida) {
+            Comida comida = (Comida) obj;
+            this.mochila.guardar(obj);
+        }
     }
 
     public void interactuarConObjeto(ObjetoMovil obj) {
-        // todo (segun instancia, es como interactuara)
+        if (obj == null) {
+            throw new NullPointerException("el objeto es nulo");
+        }
+        if (!this.mochila.getObjetos().contains(obj)) {
+            throw new NullPointerException("el objeto no se encuentra en la mochila");
+        }
+        if (obj instanceof Comida) {
+            Comida comida = (Comida) obj;
+            comida.consumir(this);
+            if (comida.getCantUsos() <= 0) {
+                this.mochila.getObjetos().remove(comida);
+            }
+        }
     }
 
     public void atacar(Enemigo e) {
@@ -32,17 +59,5 @@ public class Heroe extends Personaje {
 
     public void equiparArmor(Armadura a) {
         this.armor = a;
-    }
-
-    public int getVida() {
-        return vida;
-    }
-
-    public void setVida(int vida) {
-        this.vida = vida;
-    }
-
-    public Mochila getMochila() {
-        return mochila;
     }
 }
